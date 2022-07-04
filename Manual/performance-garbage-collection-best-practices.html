@@ -1,0 +1,633 @@
+<!DOCTYPE html><html class="no-js" lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '///gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-5V25JL6');
+    </script><link href="https:///css?family=Roboto&amp;display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="twitter:card" content="summary">
+<meta property="og:title" content="Garbage collection best practices - Unity 手册">
+<title>Garbage collection best practices - Unity 手册</title>
+<meta property="og:image" content="https://unity3d.com/files/images/ogimg.jpg">
+<meta name="description" content="Garbage collection is automatic, but the process requires a significant amount of CPU time.">
+<meta property="og:description" content="Garbage collection is automatic, but the process requires a significant amount of CPU time.">
+<meta name="author" content="Unity Technologies">
+<link rel="shortcut icon" href="https://unity.com/themes/contrib/unity_base/images/favicons/favicon.ico">
+<link rel="icon" type="image/png" href="../StaticFiles/images/favicons/favicon.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="../StaticFiles/images/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../StaticFiles/images/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="../StaticFiles/images/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../StaticFiles/images/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../StaticFiles/images/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon-precomposed" href="../StaticFiles/images/favicons/apple-touch-icon.png">
+<meta name="msapplication-TileColor" content="#222c37">
+<meta name="msapplication-TileImage" content="../StaticFiles/images/favicons/tileicon-144x144.png">
+<script type="text/javascript" src="https://" charset="UTF-8" data-domain-script="6e91be4c-3145-4ea2-aa64-89d716064836"></script><script type="text/javascript">
+        function OptanonWrapper() { }
+    </script><script>
+      var docs_type = 'Manual';
+      var lang = 'cn';
+      var page = 'performance-garbage-collection-best-practices';
+      if(!page) page = 'index';
+      var version = '2020.3';
+      var docs_versions = [{version: '2022.1',version_string: '2022.1',supported: true},{version: '2021.3',version_string: '2021.3',supported: true},{version: '2021.2',version_string: '2021.2',supported: false},{version: '2021.1',version_string: '2021.1',supported: false},{version: '2020.3',version_string: '2020.3',supported: true},{version: '2020.2',version_string: '2020.2',supported: false},{version: '2020.1',version_string: '2020.1',supported: false},{version: '2019.4',version_string: '2019.4',supported: true},{version: '2019.3',version_string: '2019.3',supported: false},{version: '2019.2',version_string: '2019.2',supported: false},{version: '2019.1',version_string: '2019.1',supported: false},{version: '2018.4',version_string: '2018.4',supported: false},{version: '2018.3',version_string: '2018.3',supported: false},{version: '2018.2',version_string: '2018.2',supported: false},{version: '2018.1',version_string: '2018.1',supported: false},{version: '2017.4',version_string: '2017.4',supported: false},{version: '2017.3',version_string: '2017.3',supported: false},{version: '2017.2',version_string: '2017.2',supported: false},{version: '2017.1',version_string: '2017.1',supported: false},{version: '5.6',version_string: '560',supported: false},];</script><script type="text/javascript" src="../StaticFiles/js/jquery.js"></script><script type="text/javascript" src="../StaticFiles/js/core.js"></script><script type="text/javascript" src="../StaticFiles/js/jquery.sidebar.min.js"></script><script type="text/javascript" src="docdata/toc.js"></script><script type="text/javascript" src=""></script><script type="text/javascript" src="../StaticFiles/js/custom.js"></script><link rel="stylesheet" type="text/css" href="../StaticFiles/css/core.css">
+<link rel="stylesheet" type="text/css" href="../StaticFiles/css/custom.css">
+<link rel="canonical" href="https://docs.unity3d.com/cn/2020.3/Manual/performance-garbage-collection-best-practices.html">
+<link rel="alternate" href="https://docs.unity3d.com/en/2020.3/Manual/performance-garbage-collection-best-practices.html" hreflang="en">
+<link rel="alternate" href="https://docs.unity3d.com/cn/2020.3/Manual/performance-garbage-collection-best-practices.html" hreflang="zh">
+<link rel="alternate" href="https://docs.unity3d.com/ja/2020.3/Manual/performance-garbage-collection-best-practices.html" hreflang="ja">
+<link rel="alternate" href="https://docs.unity3d.com/es/2020.3/Manual/performance-garbage-collection-best-practices.html" hreflang="es">
+<link rel="alternate" href="https://docs.unity3d.com/kr/2020.3/Manual/performance-garbage-collection-best-practices.html" hreflang="ko">
+<link rel="alternate" href="https://docs.unity3d.com/ru/2020.3/Manual/performance-garbage-collection-best-practices.html" hreflang="ru">
+<link rel="alternate" href="https://docs.unity3d.com/2020.3/Documentation/Manual/performance-garbage-collection-best-practices.html" hreflang="x-default">
+</head>
+<body>
+<noscript><iframe src="///ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="header-wrapper">
+<div id="header" class="header"><div class="content">
+<div class="spacer"><div class="menu">
+<div id="nav-open" for="nav-input"><span></span></div>
+<div class="logo"><a href="./index.html"></a></div>
+<div class="search-form"><form action="30_search.html" method="get" class="apisearch">
+<input type="text" name="q" placeholder="搜索手册..." autosave="Unity Reference" results="5" class="sbox field" id="q"><input type="submit" class="submit">
+</form></div>
+<ul class="menu-items">
+<li class="menu-item"><a href="../Manual/index.html" class="selected">手册</a></li>
+<li class="menu-item"><a href="../ScriptReference/index.html" class="">脚本 API</a></li>
+</ul>
+</div></div>
+<div class="more">
+<div class="filler"></div>
+<ul><li><a href="https://unity3d.com/">
+                unity3d.com
+              </a></li></ul>
+</div>
+</div></div>
+<div class="toolbar"><div class="content">
+<div class="version-switcher">
+<div class="current toggle" data-target=".version-list"><div class="version-number">
+<div class="d-inline-block">
+          Version:
+          <b>2020.3</b>
+</div>
+<div class="d-inline-block arrow"></div>
+</div></div>
+<div class="version-list" style="display:none;">
+<ul class="versions">
+<li class="supported"><a class="docs_version_url_2022.1" href="/cn/2022.1/Manual/performance-garbage-collection-best-practices.html">2022.1</a></li>
+<li class="supported"><a class="docs_version_url_2021.3" href="/cn/2021.3/Manual/performance-garbage-collection-best-practices.html">2021.3</a></li>
+<li class=""><a class="docs_version_url_2021.2" href="/cn/2021.2/Manual/performance-garbage-collection-best-practices.html">2021.2</a></li>
+<li class=""><a class="docs_version_url_2021.1" href="/cn/2021.1/Manual/performance-garbage-collection-best-practices.html">2021.1</a></li>
+<li class="supported"><a class="docs_version_url_2020.3" href="/cn/2020.3/Manual/performance-garbage-collection-best-practices.html">2020.3</a></li>
+<li class=""><a class="docs_version_url_2020.2" href="/cn/2020.2/Manual/performance-garbage-collection-best-practices.html">2020.2</a></li>
+<li class=""><a class="docs_version_url_2020.1" href="/cn/2020.1/Manual/performance-garbage-collection-best-practices.html">2020.1</a></li>
+<li class="supported"><a class="docs_version_url_2019.4" href="/cn/2019.4/Manual/performance-garbage-collection-best-practices.html">2019.4</a></li>
+<li class=""><a class="docs_version_url_2019.3" href="/cn/2019.3/Manual/performance-garbage-collection-best-practices.html">2019.3</a></li>
+<li class=""><a class="docs_version_url_2019.2" href="/cn/2019.2/Manual/performance-garbage-collection-best-practices.html">2019.2</a></li>
+<li class=""><a class="docs_version_url_2019.1" href="/cn/2019.1/Manual/performance-garbage-collection-best-practices.html">2019.1</a></li>
+<li class=""><a class="docs_version_url_2018.4" href="/cn/2018.4/Manual/performance-garbage-collection-best-practices.html">2018.4</a></li>
+<li class=""><a class="docs_version_url_2018.3" href="/cn/2018.3/Manual/performance-garbage-collection-best-practices.html">2018.3</a></li>
+<li class=""><a class="docs_version_url_2018.2" href="/cn/2018.2/Manual/performance-garbage-collection-best-practices.html">2018.2</a></li>
+<li class=""><a class="docs_version_url_2018.1" href="/cn/2018.1/Manual/performance-garbage-collection-best-practices.html">2018.1</a></li>
+<li class=""><a class="docs_version_url_2017.4" href="/cn/2017.4/Manual/performance-garbage-collection-best-practices.html">2017.4</a></li>
+<li class=""><a class="docs_version_url_2017.3" href="/cn/2017.3/Manual/performance-garbage-collection-best-practices.html">2017.3</a></li>
+<li class=""><a class="docs_version_url_2017.2" href="/cn/2017.2/Manual/performance-garbage-collection-best-practices.html">2017.2</a></li>
+<li class=""><a class="docs_version_url_2017.1" href="/cn/2017.1/Manual/performance-garbage-collection-best-practices.html">2017.1</a></li>
+<li class=""><a class="docs_version_url_560" href="/cn/560/Manual/performance-garbage-collection-best-practices.html">5.6</a></li>
+<div class="versionsWithThisPage" style="display:none;"><li><p>包含此页的版本：</p></li></div>
+<div class="versionsWithoutThisPage" style="display:none;"><li><p>不含此页的版本：</p></li></div>
+</ul>
+<ul class="description">
+<li>
+<div class="supported-box"></div>受支持</li>
+<li>
+<div class="legacy-box"></div>旧版</li>
+</ul>
+</div>
+</div>
+<ul class="nav-menu-items">
+<li class="menu-item"><a href="../Manual/index.html" class="selected">手册</a></li>
+<li class="menu-item"><a href="../ScriptReference/index.html" class="">脚本 API</a></li>
+</ul>
+<div class="lang-switcher">
+<div class="current toggle" data-target=".lang-list">
+<div class="lbl">语言:
+        <span class="b">中文</span>
+</div>
+<div class="arrow"></div>
+</div>
+<div class="lang-list" style="display:none;"><ul>
+<li><a data-lang="en" href="/2020.3/Documentation/Manual/performance-garbage-collection-best-practices.html">English</a></li>
+<li><a data-lang="cn" href="/cn/2020.3/Manual/performance-garbage-collection-best-practices.html">中文</a></li>
+<li><a data-lang="ja" href="/ja/2020.3/Manual/performance-garbage-collection-best-practices.html">日本語</a></li>
+<li><a data-lang="es" href="/es/2020.3/Manual/performance-garbage-collection-best-practices.html">Español</a></li>
+<li><a data-lang="kr" href="/kr/2020.3/Manual/performance-garbage-collection-best-practices.html">한국어</a></li>
+<li><a data-lang="ru" href="/ru/2020.3/Manual/performance-garbage-collection-best-practices.html">Русский</a></li>
+</ul></div>
+</div>
+</div></div>
+</div>
+<div id="master-wrapper" class="master-wrapper clear">
+<div id="sidebar" class="sidebar hidden"><div class="sidebar-wrap"><div class="content"><div class="sidebar-menu"><div class="toc">
+<h2>手册</h2>
+<div class="version-switcher">
+<div class="current toggle" data-target=".version-list"><div class="version-number">
+<div class="d-inline-block">
+          Version:
+          <b>2020.3</b>
+</div>
+<div class="d-inline-block arrow"></div>
+</div></div>
+<div class="version-list" style="display:none;">
+<ul class="versions">
+<li class="supported"><a class="docs_version_url_2022.1" href="/cn/2022.1/Manual/performance-garbage-collection-best-practices.html">2022.1</a></li>
+<li class="supported"><a class="docs_version_url_2021.3" href="/cn/2021.3/Manual/performance-garbage-collection-best-practices.html">2021.3</a></li>
+<li class=""><a class="docs_version_url_2021.2" href="/cn/2021.2/Manual/performance-garbage-collection-best-practices.html">2021.2</a></li>
+<li class=""><a class="docs_version_url_2021.1" href="/cn/2021.1/Manual/performance-garbage-collection-best-practices.html">2021.1</a></li>
+<li class="supported"><a class="docs_version_url_2020.3" href="/cn/2020.3/Manual/performance-garbage-collection-best-practices.html">2020.3</a></li>
+<li class=""><a class="docs_version_url_2020.2" href="/cn/2020.2/Manual/performance-garbage-collection-best-practices.html">2020.2</a></li>
+<li class=""><a class="docs_version_url_2020.1" href="/cn/2020.1/Manual/performance-garbage-collection-best-practices.html">2020.1</a></li>
+<li class="supported"><a class="docs_version_url_2019.4" href="/cn/2019.4/Manual/performance-garbage-collection-best-practices.html">2019.4</a></li>
+<li class=""><a class="docs_version_url_2019.3" href="/cn/2019.3/Manual/performance-garbage-collection-best-practices.html">2019.3</a></li>
+<li class=""><a class="docs_version_url_2019.2" href="/cn/2019.2/Manual/performance-garbage-collection-best-practices.html">2019.2</a></li>
+<li class=""><a class="docs_version_url_2019.1" href="/cn/2019.1/Manual/performance-garbage-collection-best-practices.html">2019.1</a></li>
+<li class=""><a class="docs_version_url_2018.4" href="/cn/2018.4/Manual/performance-garbage-collection-best-practices.html">2018.4</a></li>
+<li class=""><a class="docs_version_url_2018.3" href="/cn/2018.3/Manual/performance-garbage-collection-best-practices.html">2018.3</a></li>
+<li class=""><a class="docs_version_url_2018.2" href="/cn/2018.2/Manual/performance-garbage-collection-best-practices.html">2018.2</a></li>
+<li class=""><a class="docs_version_url_2018.1" href="/cn/2018.1/Manual/performance-garbage-collection-best-practices.html">2018.1</a></li>
+<li class=""><a class="docs_version_url_2017.4" href="/cn/2017.4/Manual/performance-garbage-collection-best-practices.html">2017.4</a></li>
+<li class=""><a class="docs_version_url_2017.3" href="/cn/2017.3/Manual/performance-garbage-collection-best-practices.html">2017.3</a></li>
+<li class=""><a class="docs_version_url_2017.2" href="/cn/2017.2/Manual/performance-garbage-collection-best-practices.html">2017.2</a></li>
+<li class=""><a class="docs_version_url_2017.1" href="/cn/2017.1/Manual/performance-garbage-collection-best-practices.html">2017.1</a></li>
+<li class=""><a class="docs_version_url_560" href="/cn/560/Manual/performance-garbage-collection-best-practices.html">5.6</a></li>
+<div class="versionsWithThisPage" style="display:none;"><li><p>包含此页的版本：</p></li></div>
+<div class="versionsWithoutThisPage" style="display:none;"><li><p>不含此页的版本：</p></li></div>
+</ul>
+<ul class="description">
+<li>
+<div class="supported-box"></div>受支持</li>
+<li>
+<div class="legacy-box"></div>旧版</li>
+</ul>
+</div>
+</div>
+<div class="clear"></div>
+</div></div></div></div></div>
+<div id="content-wrap" class="content-wrap opened-sidebar"><div class="content-block"><div class="content">
+<div class="section">
+<div class="breadcrumbs clear"><ul>
+<li><a href="UnityManual.html">Unity 用户手册 2020.3 (LTS)</a></li>
+<li><a href="UnityOverview.html">在 Unity 中操作</a></li>
+<li><a href="analysis.html">分析</a></li>
+<li><a href="performance-memory-overview.html">Memory in Unity</a></li>
+<li><a href="performance-garbage-collector.html">Garbage collector overview</a></li>
+<li>Garbage collection best practices</li>
+</ul></div>
+<div class="mb20"><div class="nextprev clear">
+<div class="icon tt left mr1" data-distance="-40|-30|top">
+<span class="prev"><a href="performance-disabling-garbage-collection.html"></a></span><div class="tip">Disabling garbage collection</div>
+</div>
+<div class="icon tt right" data-distance="-40|-30|top">
+<span class="next"><a href="Profiler.html"></a></span><div class="tip">性能分析器概述</div>
+</div>
+</div></div>
+<h1>Garbage collection best practices</h1>
+<!--BeginSwitchLink--><!--EndSwitchLink-->
+<div class="clear"></div>
+
+<p><a href="performance-garbage-collector.html">Garbage collection</a> is automatic, but the process requires a significant amount of CPU time. </p>
+
+<p>C#’s automatic memory management reduces the risk of memory leaks and other programming errors, in comparison to other programming languages like C++, where you must manually track and free all the memory you allocate. </p>
+
+<p>Automatic memory management allows you to write code quickly and easily, and with few errors. However, this convenience might have performance implications. To optimize your code for performance, you must avoid situations where your application triggers the <a href="performance-garbage-collector.html">garbage collector</a> a lot. This section outlines some common issues and workflows that affect when your application triggers the garbage collector.</p>
+
+<ul>
+<li><a href="#tempalloc">Temporary allocations</a></li>
+<li><a href="#reusablepools">Reusable object pools</a></li>
+<li><a href="#repeatedstring">Repeated string concatenation</a></li>
+<li><a href="#methodarray">Method returning an array value</a></li>
+<li><a href="#collectionreuse">Collection and array reuse</a></li>
+<li><a href="#closures">Closures and anonymous methods</a></li>
+<li><a href="#boxing">Boxing</a></li>
+<li><a href="#arrayapis">Array-valued Unity APIs</a></li>
+<li><a href="#emptyarray">Empty array reuse</a></li>
+</ul>
+
+<p><a name="tempalloc"></a></p>
+
+<h2>临时分配</h2>
+
+<p>It’s common for an application to allocate temporary data to the <a href="performance-managed-memory.html#managed-heap">managed heap</a> in each frame; however, this can affect the performance of the application. For example:</p>
+
+<ul>
+<li>If a program allocates one kilobyte (1KB) of temporary memory each frame, and it runs at 60 frames per second, then it must allocate 60 kilobytes of temporary memory per second. Over the course of a minute, this adds up to 3.6 megabytes of memory available to the garbage collector.</li>
+<li>Invoking the garbage collector once per second has a negative effect on performance. If the garbage collector only runs once per minute, it has to clean up 3.6 megabytes spread across thousands of individual allocations, which might result in significant garbage collection times.</li>
+<li>Loading operations have an impact on performance. If your application generates a lot of temporary objects during a heavy asset-loading operation, and Unity references those objects until the operation completes, then the garbage collector can’t release those temporary objects. This means that the managed heap needs to expand, even though Unity releases a lot of the objects that it contains a short time later.</li>
+</ul>
+
+<p>To get around this, you should try to reduce the amount of frequently managed heap allocations as possible: ideally to 0 bytes per frame, or as close to zero as you can get. </p>
+
+<p><a name="reusablepools"></a></p>
+
+<h2>Reusable object pools</h2>
+
+<p>There are a lot of cases where you can reduce the number of times that your application creates and destroys objects, to avoid generating garbage. There are certain types of objects in games, such as projectiles, which might appear over and over again even though only a small number are ever in play at once. In cases like this, you can reuse the objects, rather than destroy old ones and replace them with new ones. </p>
+
+<p>For example, it’s not optimal to instantiate a new projectile object from a Prefab every time one is fired. Instead, you can calculate the maximum number of projectiles that could ever exist simultaneously during gameplay, and instantiate an array of objects of the correct size when the game first enters the gameplay scene. To do this:</p>
+
+<ul>
+<li>Start with all the projectile GameObjects set to being inactive.</li>
+<li>When a projectile is fired, search through the array to find the first inactive projectile in the array, move it to the required position and set the GameObject to be active.</li>
+<li>When the projectile is destroyed, set the GameObject to inactive again.</li>
+</ul>
+
+<p>The code below shows a simple implementation of a stack-based object pool.</p>
+
+<pre><code class="lang-csharp">using System.Collections.Generic;
+using UnityEngine;
+
+public class ExampleObjectPool : MonoBehaviour {
+
+   public GameObject PrefabToPool;
+   public int MaxPoolSize = 10;
+  
+   private Stack&lt;GameObject&gt; inactiveObjects = new Stack&lt;GameObject&gt;();
+  
+   void Start() {
+       if (PrefabToPool != null) {
+           for (int i = 0; i &lt; MaxPoolSize; ++i) {
+               var newObj = Instantiate(PrefabToPool);
+               newObj.SetActive(false);
+               inactiveObjects.Push(newObj);
+           }
+       }
+   }
+
+   public GameObject GetObjectFromPool() {
+       while (inactiveObjects.Count &gt; 0) {
+           var obj = inactiveObjects.Pop();
+          
+           if (obj != null) {
+               obj.SetActive(true);
+               return obj;
+           }
+           else {
+               Debug.LogWarning("Found a null object in the pool. Has some code outside the pool destroyed it?");
+           }
+       }
+      
+       Debug.LogError("All pooled objects are already in use or have been destroyed");
+       return null;
+   }
+  
+   public void ReturnObjectToPool(GameObject objectToDeactivate) {
+       if (objectToDeactivate != null) {
+           objectToDeactivate.SetActive(false);
+           inactiveObjects.Push(objectToDeactivate);
+       }
+   }
+}
+</code></pre>
+
+<p><a name="repeatedstring"></a></p>
+
+<h2>Repeated string concatenation</h2>
+
+<p>Strings in C# are immutable reference types. A reference type means that Unity allocates them on the managed heap and they’re subject to garbage collection. Immutable means that once a string has been created, it can’t be changed; any attempt to modify the string results in an entirely new string. For this reason, you should avoid creating temporary strings wherever possible.</p>
+
+<p>The following example code adds new pieces of a string in each loop. The previous contents of the line variable become redundant, and the code allocates a whole new string to contain the original piece.</p>
+
+<pre><code class="lang-csharp">//C# script example
+using UnityEngine;
+using System.Collections;
+
+public class ExampleScript : MonoBehaviour {
+    void ConcatExample(int[] intArray) {
+        string line = intArray[0].ToString();
+        
+        for (i = 1; i &lt; intArray.Length; i++) {
+            line += ", " + intArray[i].ToString();
+        }
+        
+        return line;
+    }
+}
+</code></pre>
+
+<p>This is less efficient than adding new pieces to the string in place, one by one.</p>
+
+<p>Because this string gets longer with increasing values of <code>i</code>, the amount of heap space consumed also increases, which means that hundreds of bytes of free heap space gets used up each time this method is called. If you need to concatenate a lot of strings together then you should use Mono library’s <a href="http://msdn.microsoft.com/en-gb/library/system.text.stringbuilder.aspx"><code>System.Text.StringBuilder</code></a> class.</p>
+
+<p>However, a repeated concatenation doesn’t decrease performance too much unless you call it frequently (for example, every frame update). The following example allocates new strings each time Update is called, and generates a continuous stream of objects that garbage collection must handle:</p>
+
+<pre><code class="lang-csharp">//C# script example
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+
+public class ExampleScript : MonoBehaviour {
+    public Text scoreBoard;
+    public int score;
+    
+    void Update() {
+        string scoreText = "Score: " + score.ToString();
+        scoreBoard.text = scoreText;
+    }
+}
+</code></pre>
+
+<p>To prevent this continuous requirement for garbage collection, you can configure the code so that the text only updates when the score changes: </p>
+
+<pre><code class="lang-csharp">//C# script example
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+
+public class ExampleScript : MonoBehaviour {
+    public Text scoreBoard;
+    public string scoreText;
+    public int score;
+    public int oldScore;
+    
+    void Update() {
+        if (score != oldScore) {
+            scoreText = "Score: " + score.ToString();
+            scoreBoard.text = scoreText;
+            oldScore = score;
+        }
+    }
+}
+</code></pre>
+
+<p><a name="methodarray"></a></p>
+
+<h2>Method returning an array value</h2>
+
+<p>Sometimes it might be convenient to write a method that creates a new array, fills the array with values and then returns it. However, if this method is called repeatedly, then new memory gets allocated each time. </p>
+
+<p>The following example code shows an example of a method which creates an array every time it’s called:</p>
+
+<pre><code class="lang-csharp">//C# script example
+using UnityEngine;
+using System.Collections;
+
+public class ExampleScript : MonoBehaviour {
+    float[] RandomList(int numElements) {
+        var result = new float[numElements];
+        
+        for (int i = 0; i &lt; numElements; i++) {
+            result[i] = Random.value;
+        }
+        
+        return result;
+    }
+}
+</code></pre>
+
+<p>One way you can avoid allocating memory every time is to make use of the fact that an array is a reference type. You can modify an array that’s passed into a method as a parameter, and the results remain after the method returns. To do this, you can configure the example code as follows:</p>
+
+<pre><code class="lang-csharp">//C# script example
+using UnityEngine;
+using System.Collections;
+
+public class ExampleScript : MonoBehaviour {
+    void RandomList(float[] arrayToFill) {
+        for (int i = 0; i &lt; arrayToFill.Length; i++) {
+            arrayToFill[i] = Random.value;
+        }
+    }
+}
+</code></pre>
+
+<p>This code replaces the existing contents of the array with new values. This workflow requires the calling code to do the initial allocation of the array, but the function doesn’t generate any new garbage when it’s called. The array can then be re-used and re-filled with random numbers the next time this method is called without any new allocations on the managed heap.</p>
+
+<p><a name="collectionreuse"></a></p>
+
+<h2>Collection and array reuse</h2>
+
+<p>When you use arrays or classes from the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic?view=net-6.0"><code>System.Collection</code></a> namespace (for example, Lists or Dictionaries), it’s efficient to reuse or pool the allocated collection or array. Collection classes expose a Clear method, which eliminates a collection’s values but doesn’t release the memory allocated to the collection.</p>
+
+<p>This is useful if you want to allocate temporary “helper” collections for complex computations. The following code example demonstrates this:</p>
+
+<pre><code class="lang-csharp">void Update() {
+
+    // Allocating a new List every Update: you should avoid doing this.
+    List&lt;float&gt; nearestNeighbors = new List&lt;float&gt;();
+
+    findDistancesToNearestNeighbors(nearestNeighbors);
+
+    nearestNeighbors.Sort();
+
+    // … use the sorted list somehow …
+}
+</code></pre>
+
+<p>This example code allocates the nearestNeighbors List once per frame to collect a set of data points. </p>
+
+<p>You can hoist this List out of the method and into the containing class, so that your code doesn’t need to allocate a new List each frame:</p>
+
+<pre><code class="lang-csharp">List&lt;float&gt; m_NearestNeighbors = new List&lt;float&gt;();
+
+void Update() {
+
+    m_NearestNeighbors.Clear();
+
+    findDistancesToNearestNeighbors(NearestNeighbors);
+
+    m_NearestNeighbors.Sort();
+
+    // … use the sorted list somehow …
+}
+</code></pre>
+
+<p>This example code retains and reuses the List’s memory across multiple frames. The code only allocates new memory when the List needs to expand.</p>
+
+<p><a name="closures"></a></p>
+
+<h2>闭包和匿名方法</h2>
+
+<p>In general, you should avoid closures in C# whenever possible. You should minimize the use of anonymous methods and method references in performance-sensitive code, and especially in code that executes on a per-frame basis.</p>
+
+<p>Method references in C# are reference types, so they’re allocated on the heap. This means that if you pass a method reference as an argument, it’s easy to create temporary allocations. This allocation happens regardless of whether the method you pass is an anonymous method or a predefined one.</p>
+
+<p>Also, when you convert an anonymous method to a closure, the amount of memory required to pass the closure to a method increases a lot.</p>
+
+<p>The following code sample uses a simple anonymous method to control the sorting order of the list of numbers created on the first line. </p>
+
+<pre><code class="lang-csharp">List&lt;float&gt; listOfNumbers = createListOfRandomNumbers();
+
+listOfNumbers.Sort( (x, y) =&gt;
+
+(int)x.CompareTo((int)(y/2)) 
+
+);
+</code></pre>
+
+<p>To make this snippet reusable, you might substitute the constant 2 for a variable in local scope:</p>
+
+<pre><code class="lang-csharp">List&lt;float&gt; listOfNumbers = createListOfRandomNumbers();
+
+int desiredDivisor = getDesiredDivisor();
+
+listOfNumbers.Sort( (x, y) =&gt;
+
+(int)x.CompareTo((int)(y/desiredDivisor))
+
+);
+</code></pre>
+
+<p>The anonymous method now needs to access the state of a variable which is outside of its scope, and so the method has become a closure. The <code>desiredDivisor</code> variable must be passed into the closure so that the closure’s code can use it.</p>
+
+<p>To ensure that the correct values are passed in to the closure, C# generates an anonymous class that can retain the externally scoped variables that the closure needs. A copy of this class is instantiated when the closure is passed to the Sort method, and the copy is initialized with the value of the desiredDivisor integer.</p>
+
+<p>Executing the closure requires instantiating a copy of its generated class, and all classes are reference types in C#. For this reason, executing the closure requires allocation of an object on the managed heap.</p>
+
+<p><a name="boxing"></a></p>
+
+<h2>装箱 (Boxing)</h2>
+
+<p>Boxing is one of the most common sources of unintended temporary memory allocations found in Unity projects. It happens when a value-typed variable gets automatically converted to a reference type. This most often happens when passing primitive value-typed variables (such as int and float) to object-typed methods. You should avoid boxing when writing C# code for Unity runtimes.</p>
+
+<p>In this example, the integer in x is boxed so that it can be passed to the <code>object.Equals</code> method, because the <code>Equals</code> method on an object requires that an object is passed to it.</p>
+
+<pre><code class="lang-csharp">int x = 1;
+
+object y = new object();
+
+y.Equals(x);
+</code></pre>
+
+<p>C# IDEs and compilers don’t issue warnings about boxing, even though boxing leads to unintended memory allocations. This is because C# assumes that small temporary allocations are efficiently handled by generational garbage collectors and allocation-size-sensitive memory pools.</p>
+
+<p>While Unity’s allocator does use different memory pools for small and large allocations, Unity’s <a href="performance-garbage-collector.md">garbage collector</a> isn’t generational, so it can’t efficiently sweep out the small, frequent temporary allocations that boxing generates.</p>
+
+<h3>识别装箱</h3>
+
+<p>Boxing appears in CPU traces as calls to one of a few methods, depending on the scripting back end in use. These take one of the following forms, where <code>&lt;example class&gt;</code> is the name of a class or struct, and <code>…</code> is a number of arguments:</p>
+
+<pre><code class="lang-csharp">&lt;example class&gt;::Box(…)
+Box(…)
+&lt;example class&gt;_Box(…)
+</code></pre>
+
+<p>To find boxing, you can also search the output of a decompiler or IL viewer, such as the <a href="https://www.jetbrains.com/help/resharper/Viewing_Intermediate_Language.html">IL viewer tool built into ReSharper</a> or the <a href="https://www.jetbrains.com/decompiler/">dotPeek decompiler</a>. The IL instruction is <code>box</code>.</p>
+
+<p><a name="arrayapis"></a></p>
+
+<h2>Array-valued Unity APIs</h2>
+
+<p>A subtle cause of unintended allocation array is the repeated accessing of Unity APIs that return arrays. All Unity APIs that return arrays create a new copy of the array each time they’re accessed. If your code accesses an array-valued Unity API more often than necessary, there is likely to be a detrimental impact on performance.</p>
+
+<p>As an example, the following code unnecessarily creates four copies of the vertices array per loop iteration. The allocations happen each time the <code>.vertices</code> property is accessed.</p>
+
+<pre><code class="lang-csharp">for(int i = 0; i &lt; mesh.vertices.Length; i++) {
+    float x, y, z;
+
+    x = mesh.vertices[i].x;
+    y = mesh.vertices[i].y;
+    z = mesh.vertices[i].z;
+
+    // ...
+
+    DoSomething(x, y, z);   
+}
+</code></pre>
+
+<p>You can refactor this code into a single array allocation, regardless of the number of loop iterations. To do this, configure your code to capture the vertices array before the loop:</p>
+
+<pre><code class="lang-csharp">var vertices = mesh.vertices;
+
+for(int i = 0; i &lt; vertices.Length; i++) {
+
+    float x, y, z;
+
+    x = vertices[i].x;
+    y = vertices[i].y;
+    z = vertices[i].z;
+
+    // ...
+
+    DoSomething(x, y, z);   
+}
+</code></pre>
+
+<p>While the CPU performance implications of accessing a property once isn’t high, repeated accesses within tight loops create CPU performance hotspots. Repeated accesses expand the <a href="performance-managed-memory.html#managed-heap">managed heap</a>.</p>
+
+<p>This problem is common on mobile devices, because the <a href="../ScriptReference/Input-touches.html">Input.touches</a> API behaves similarly to the above. It’s also common for projects to contain code similar to the following, where an allocation occurs each time the <code>.touches</code> property is accessed.</p>
+
+<pre><code class="lang-csharp">for ( int i = 0; i &lt; Input.touches.Length; i++ ) {
+   Touch touch = Input.touches[i];
+
+    // …
+}
+</code></pre>
+
+<p>To improve this, you can configure your code to hoist the array allocation out of the loop condition:</p>
+
+<pre><code class="lang-csharp">Touch[] touches = Input.touches;
+
+for ( int i = 0; i &lt; touches.Length; i++ ) {
+
+   Touch touch = touches[i];
+
+   // …
+}
+</code></pre>
+
+<p>However, there are now versions of a lot of Unity APIs that don’t cause memory allocations. You should use these when possible.</p>
+
+<p>The following code example converts the previous example to the allocation-less Touch API:</p>
+
+<pre><code class="lang-csharp">int touchCount = Input.touchCount;
+
+for ( int i = 0; i &lt; touchCount; i++ ) {
+   Touch touch = Input.GetTouch(i);
+
+   // …
+}
+</code></pre>
+
+<p>Note that the property access (<code>Input.touchCount</code>) remains outside the loop condition, to save the CPU impact of invoking the property’s get method.</p>
+
+<p><a name="emptyarray"></a></p>
+
+<h2>Empty array reuse</h2>
+
+<p>Some development teams prefer to return empty arrays instead of null when an array-valued method needs to return an empty set. This coding pattern is common in a lot of managed languages, particularly C# and Java.</p>
+
+<p>In general, when returning a zero-length array from a method, it’s more efficient to return a pre-allocated static instance of the zero-length array than to repeatedly create empty arrays. </p>
+
+<h2>更多资源</h2>
+
+<ul>
+<li><a href="performance-garbage-collector.html">Garbage collector overview</a></li>
+<li><a href="performance-managed-memory.html">Managed memory overview</a></li>
+<li><a href="performance-incremental-garbage-collection.html">Incremental garbage collection</a></li>
+</ul>
+<div class="nextprev clear">
+<div class="icon tt left mr1" data-distance="-40|-30|top">
+<span class="prev"><a href="performance-disabling-garbage-collection.html"></a></span><div class="tip">Disabling garbage collection</div>
+</div>
+<div class="icon tt right" data-distance="-40|-30|top">
+<span class="next"><a href="Profiler.html"></a></span><div class="tip">性能分析器概述</div>
+</div>
+</div>
+</div>
+<div class="footer-wrapper">
+<div class="footer clear">
+<div class="copy">版权所有 © 2021 Unity Technologies. Publication 2020.3</div>
+<div class="menu">
+<a href="https://learn.unity.com/">教程</a><a href="https://answers.unity3d.com">社区答案</a><a href="https://support.unity3d.com/hc/en-us">知识库</a><a href="https://forum.unity3d.com">论坛</a><a href="https://unity3d.com/asset-store">Asset Store</a>
+</div>
+</div>
+<div></div>
+</div>
+</div></div></div>
+</div>
+</body>
+</html>
